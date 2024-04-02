@@ -55,8 +55,8 @@ Creates a new location.
 ```json
 {
   "deviceId": "Device ID",
-  "latitude": 123.456,
-  "longitude": 78.901
+  "latitude": 23.456,
+  "longitude": 128.901
 }
 ```
 
