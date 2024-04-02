@@ -1,6 +1,6 @@
 # GPS Tracker
 
-GPS Tracker is a web application designed to track the location of devices in real-time. It provides RESTful APIs for creating and managing devices and their locations. With GPS Tracker, you can easily monitor the movements of your devices and retrieve location data efficiently.
+GPS Tracker is a Nodejs backend application designed to track the location of devices in real-time. It provides RESTful APIs for creating and managing devices and their locations. With GPS Tracker, you can easily monitor the movements of your devices and retrieve location data efficiently.
 
 ## Table of Contents
 
