@@ -90,7 +90,7 @@ app.get('/devices', async (req, res) => {
         return successResponse(res, message, paginatedDevices, 200);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        errorResponse(res, "Server Error", 500, null);
     }
 });
 
@@ -101,19 +101,19 @@ app.post('/locations', async (req, res) => {
 
         // Validate input data
         if (!mongoose.Types.ObjectId.isValid(deviceId)) {
-            return res.status(400).json({ message: "deviceId is not a valid ObjectId" });
+            return errorResponse(res, "deviceId is not a valid ObjectId", 400, null);
         }
         if (!deviceId || !latitude || !longitude || isNaN(latitude) || isNaN(longitude)) {
-            return res.status(400).json({ message: "Invalid input data" });
+            return errorResponse(res, "Invalid input data", 400, null);
         }
         if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
-            return res.status(400).json({ message: "Invalid latitude or longitude value" });
+            return errorResponse(res, "Invalid latitude or longitude value", 400, null);
         }
 
         // Check if the device exists
         const deviceExists = await Device.exists({ _id: deviceId });
         if (!deviceExists) {
-            return res.status(404).json({ message: "Device not found" });
+            return errorResponse(res, "Device not found", 404, null);
         }
 
         // Create location
@@ -122,7 +122,7 @@ app.post('/locations', async (req, res) => {
         successResponse(res, "Location created successfully", { id: location._id }, 201);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        errorResponse(res, "Server Error", 500, null);
     }
 });
 
@@ -164,7 +164,7 @@ app.get('/locations', async (req, res) => {
         return successResponse(res, message, paginatedLocations, 200);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        errorResponse(res, "Server Error", 500, null);
     }
 });
 
@@ -247,7 +247,7 @@ app.get('/devices/:deviceId/locations', async (req, res) => {
         return successResponse(res, message, paginatedLocations, 200);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        errorResponse(res, "Server Error", 500, null);
     }
 });
 
