@@ -68,7 +68,7 @@ app.get("/devices", async (req, res) => {
 			? [...new Set(selectFields.split(",")), "name", "_id"]
 					// .filter((field) => field !== "userPassword")
 					.join(" ")
-			: ["name", "_id"];
+			: ["name", "_id", "createdAt"];
 
 		const page = parseInt(req.query.page) || 1;
 		const limit = parseInt(req.query.limit) || 0;
@@ -184,7 +184,7 @@ app.get("/locations", async (req, res) => {
 			? [...new Set(selectFields.split(",")), "name", "_id"]
 					// .filter((field) => field !== "userPassword")
 					.join(" ")
-			: ["name", "_id", "device", "latitude", "longitude"];
+			: ["name", "_id", "device", "latitude", "longitude", "createdAt"];
 
 		const page = parseInt(req.query.page) || 1;
 		const limit = parseInt(req.query.limit) || 0;
@@ -255,7 +255,7 @@ app.get("/devices/:device/locations/latest", async (req, res) => {
 			? [...new Set(selectFields.split(",")), "name", "_id"]
 					// .filter((field) => field !== "userPassword")
 					.join(" ")
-			: ["name", "_id", "device", "latitude", "longitude"];
+			: ["name", "_id", "device", "latitude", "longitude", "createdAt"];
 
 		// Retrieve latest location from database
 		const location = await getLatestLocationDbOperation(query, selectFields, populateFields);
@@ -303,7 +303,7 @@ app.get("/devices/:device/locations", async (req, res) => {
 			? [...new Set(selectFields.split(",")), "name", "_id"]
 					// .filter((field) => field !== "userPassword")
 					.join(" ")
-			: ["name", "_id", "device", "latitude", "longitude"];
+			: ["name", "_id", "device", "latitude", "longitude", "createdAt"];
 
 		const page = parseInt(req.query.page) || 1;
 		const limit = parseInt(req.query.limit) || 0;
@@ -505,7 +505,6 @@ async function getLatestLocationDbOperation(query, selectFields, populateFields)
 const successResponse = function (res, message, result, status) {
 	status = status || 200;
 	return res.status(status).json({
-		status,
 		message,
 		result
 	});
@@ -514,7 +513,6 @@ const successResponse = function (res, message, result, status) {
 const errorResponse = function (res, message, status, errorInfo) {
 	status = status || 500;
 	return res.status(status).json({
-		status,
 		message,
 		errorInfo
 	});
