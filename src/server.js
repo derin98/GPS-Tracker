@@ -466,7 +466,7 @@ async function getAllLocationsDbOperation(
 // Function to retrieve latest location from database
 async function getLatestLocationDbOperation(query, selectFields, populateFields) {
 	try {
-		let queryObject = Location.findOne(query);
+		let queryObject = Location.findOne(query, null, { sort: { createdAt: -1 } });
 
 		// Select fields
 		if (selectFields) {
